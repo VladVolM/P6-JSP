@@ -29,7 +29,7 @@ on Libraries node in Projects view can be used to add the JSTL 1.1 library.
                 border-radius: 4px;
                 margin: 30px;
             }
-            @media only screen and (max-width: 500px){
+            @media only screen and (max-width: 900px){
                 input{
                     width:100px;
                 }

@@ -39,7 +39,7 @@
                 margin-bottom: 10px;
                 margin-top: 10px;
             }
-            @media only screen and (max-width: 500px){
+            @media only screen and (max-width: 900px){
                 section{
                     font-size: 10px;
                 }
