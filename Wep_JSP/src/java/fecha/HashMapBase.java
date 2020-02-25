@@ -9,6 +9,10 @@ public class HashMapBase {
 
     private static long contador=16;
 
+    public static long getContador() {
+        return contador;
+    }
+
 
     public HashMapBase(boolean x) {
         

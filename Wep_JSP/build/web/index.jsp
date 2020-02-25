@@ -20,123 +20,84 @@ on Libraries node in Projects view can be used to add the JSTL 1.1 library.
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="Shortcut Icon" href="imagenes/icono.png">
+        <style>
+            body {
+                background-image: linear-gradient(to right,aqua,aquamarine);
+            }
+            section {
+                margin: 30px;
+                width: 90%;
+            }
+            form{
+                background-color: rgb(240,240,240);
+                border: 2px solid red;
+                border-radius: 4px;
+                width: 40%
+            }
+            #res{
+                border: 2px solid black;
+                border-radius: 4px;
+            }
+            @media only screen and (max-width: 500px){
+                form{
+                    width: 100%
+                }
+            }
+        </style>
     </head>
     <body>
-                                <%
-                                    response.setContentType("text/html");
-                                    String nombre2=null;
-			String nombre = request.getParameter("Nombre");
-			String apellidos = request.getParameter("Apellidos");
-			String saldo = request.getParameter("Saldo");
-			String fecha = request.getParameter("Fecha");
-                        String errores="NINGUNO";
-
-               fecha.HashMapBase map= (fecha.HashMapBase)request.getAttribute("MAP");         
+        <%
+            response.setContentType("text/html");
+            String nombre2=request.getParameter("Nombre2");;
+            String nombre = request.getParameter("Nombre");
+            String apellidos = request.getParameter("Apellidos");
+            String saldo = request.getParameter("Saldo");
+            String fecha = request.getParameter("Fecha");
+            fecha.HashMapBase map;         
                         
             if (HashMapBase.getEstado()==false){
                 map=new HashMapBase();
-                //request.setAttribute("MAP", map);
-                errores="MAP NULL";
             }else{
-                errores="MAP OK";
                 if (nombre!=null){
                     HashMapBase.añadirUsuario(new fecha.SocioDatos(nombre,apellidos,Float.valueOf(saldo),fecha));
-                    //request.setAttribute("MAP", map);
-                    errores="ADD MAP";
                 }
             }
-            //String contextPath = request.getContextPath();
-            //RequestDispatcher rd = request.getRequestDispatcher("/Web_JSP/web/registro.jsp"); 
-            //rd.forward(request, response); 
-
-//String contextPath = request.getContextPath();
-//response.sendRedirect(response.encodeRedirectURL("Web/registro.jsp"));
         %>
-        
-		<h1>JSP Page</h1>
-		<jsp:include page="aIncluir.html" flush="false"></jsp:include>
-		<%--
-		This example uses JSTL, uncomment the taglib directive above.
-		To test, display the page like this: index.jsp?sayHello=true&name=Murphy
-		--%>
-	   hello
-           <%= nombre%><%= apellidos%><%= saldo%><%= fecha%>
-           <%= errores%><%= map%><%= errores%><%= HashMapBase.getUsuariosBase()%><%= errores%><%= HashMapBase.consegirUsuario(1l)%><%= errores%><%= HashMapBase.consegirUsuario(16l)%>
-		<c:if test="${param.sayHello}">
-		    <!-- Let's welcome the user ${param.name} -->
-		    <p>Hello ${param.name}!</p>
-		</c:if>
-		<c:choose>
-		    <c:when test='${param.name == null}'>
-		        <form>
-		            <strong>Introduce tu nombre, por favor</strong>
-		            <input type=text name="name"/>
-		            <input type="hidden" name="sayHello" value="true">               
-		            <input type="submit"/>
-		        </form>
-		    </c:when>
-		    <c:otherwise>
-		        <p>Hola ${param.name}!</p>
-		    </c:otherwise>
-		</c:choose>
-		
-		<p>Con JavaBeans: Pulsa <a href="jspCalendar.jsp">aquí</a> para ver saber en que momento estamos</p>
-		<p>Scriptlets (JSP puro): Pulsa <a href="socio.jsp">aquí</a> para probar</p>
-		<p>JSTL (JSP taglib prefix="c") : Pulsa <a href="listar2.jsp">aquí</a> para probar</p>
-
-		<div>
-			Author: Volodymyr Molchkov Volkogon
-			<p>FORMULARIO DE USUARIO tras este apareceran los enlaces a los diferentes apartados</p>
-
-                        
-
-		<%--
- al usar post a esta pagina desde el form
-			
-
-${Variable}//forma de poner varuiables 1 fuera de {[(<%%>)]}
-
-<%= Variable %>// forma de poner varuiables 2
-			can't use undefined as name
-			ADMIN CON ACCESO A TODOS LOS SOCIOS(CON codigo)
-		--%>
-
-<%-- buscar en hashmap al usuario 
-	si es correcto gurdarlo en el objeto usuario
-
---%>
-
-<c:choose>
-		    <c:when test='${param.Nombre == null}'>
-			<form id='conectar' method="post" onsubmit="return true;">
-				<fieldset>
-					<legend>CONECTAR USUARIO</legend>
-					<label class="datos" for="Nombre2">Nombre:</label><input type="text" name="Nombre2" placeholder="Nombre"> 
-					</br><button type="submit">Enviar</button><% 
-                                            nombre2=request.getParameter("Nombre2");
-                                            if (nombre2!=null)
-                                            if(!HashMapBase.buscarSocio(nombre2)){
-                                                
-                            %>***NO EXISTE <%};%>
-				</fieldset>
-			</form>
-                    </c:when>
-</c:choose>
-
-
-
-			<p>Pagina que se usa para navegar el contenido del HashMap,<br> a este se añade mas contenido a traves del formulario en la página de <a href="registro.jsp">registros</a>.</p>
-                        <% 
-                                            
-                                            if (nombre2!=null || nombre!=null){
-                                                
-                            %><p>Puedes visualizar todos los usuarios en esta pagina de <a href="socio.jsp">aquí</a>.<br>
-			Recuarda que desde este se podra ver con detalle el contenido de cada socio</p> <%};%>
-			
-		<%--
-			send data to next jsp to interpret code
-		--%>
-	
-		</div>
+	<h1>Inicio</h1>
+	<section>
+            <jsp:include page="aIncluir.html" flush="false"></jsp:include>
+            <c:choose>
+		<c:when test='${param.Nombre == null && param.Buscar==null && param.Nombre2==null}'>
+                    <form id='conectar' method="post" onsubmit="return true;">
+			<fieldset>
+                            <legend>CONECTAR USUARIO</legend> 
+                            <label class="datos" for="Nombre2">Nombre:</label><input type="text" name="Nombre2" placeholder="Nombre"> 
+                            <br><button type="submit">Enviar</button>
+                            <% 
+                                nombre2=request.getParameter("Nombre2");
+                                if (nombre2!=null)
+                                    if(!HashMapBase.buscarSocio(nombre2)){
+                            %>
+                                ***NO EXISTE <input type="hidden" name="Buscar" value="0">
+                            <%}else{
+                            %>
+                                <input type="hidden" name="Buscar" value="1">
+                            <%};
+                            %>
+			</fieldset>
+                    </form>
+                </c:when>
+            </c:choose>
+            <p>Pagina que se usa para añadir mas contenido al HachMap a traves del formulario en la página de <a href="registro.jsp">registros</a>.</p>
+            <c:choose>
+		<c:when test='${param.Buscar==1 || param.Nombre != null || param.Nombre2!=null}'>
+                    <p id="res">
+                        Puedes visualizar todos los usuarios en esta pagina de <a href="socio.jsp">aquí</a>.<br>
+                        Recuarda que desde este se podra ver con detalle el contenido de cada socio.
+                    </p> 
+                </c:when>
+            </c:choose>
+        </section>
     </body>
 </html>
